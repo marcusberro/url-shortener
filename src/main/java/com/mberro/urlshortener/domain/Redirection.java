@@ -1,50 +1,73 @@
 package com.mberro.urlshortener.domain;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 /**
  * Created by Marcus Berro on 21/10/15.
  */
-//@Entity
-//@Table(name="redirection")
+@Entity
+@Table(name="redirection")
 public class Redirection {
 
-//    @Id
-//    @GeneratedValue
-//    @Column(name="id")
+    @Id
+    @GeneratedValue
+    @Column(name="id")
     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name="shortUrlId")
-    private ShortUrl shortUrl;
+    @ManyToOne
+    @JoinColumn(name="shortenUrlId")
+    private ShortenUrl shortenUrl;
 
-//    @Column(name="redirectDate")
+    @Column(name="redirectDate")
 //    @Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
     private LocalDateTime redirectDate;
 
-//    @Column(name="sourceRequestDate")
-//    @Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
-    private LocalDateTime sourceRequestDate;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="sourceInfoId")
+    private SourceInfo sourceInfo;
 
-    // http://en.wikipedia.org/wiki/WURFL
-    // http://en.wikipedia.org/wiki/UAProf
-    // http://en.wikipedia.org/wiki/User_agent_string#User_agent_identification
-    // http://developers.sun.com/mobility/midp/ttips/HTTPPost/
-//    @Column(name="userAgent")
-    private String userAgent;
+    public Redirection(ShortenUrl shortenUrl, SourceInfo sourceInfo) {
+        setShortenUrl(shortenUrl);
+        setSourceInfo(sourceInfo);
+        setRedirectDate(LocalDateTime.now());
+    }
 
-//    @Column(name="sourceHost")
-    private String sourceHost;
+    public Long getId() {
+        return id;
+    }
+
+    public ShortenUrl getShortenUrl() {
+        return shortenUrl;
+    }
+
+    public LocalDateTime getRedirectDate() {
+        return redirectDate;
+    }
+
+    public SourceInfo getSourceInfo() {
+        return sourceInfo;
+    }
+
+    private void setShortenUrl(ShortenUrl shortenUrl) {
+        this.shortenUrl = shortenUrl;
+    }
+
+    private void setRedirectDate(LocalDateTime redirectDate) {
+        this.redirectDate = redirectDate;
+    }
+
+    private void setSourceInfo(SourceInfo sourceInfo) {
+        this.sourceInfo = sourceInfo;
+    }
 
     @Override
     public String toString() {
         return "Redirection{" +
                 "id=" + id +
-                ", shortUrl=" + shortUrl +
+                ", shortenUrl=" + shortenUrl +
                 ", redirectDate=" + redirectDate +
-                ", sourceRequestDate=" + sourceRequestDate +
-                ", userAgent='" + userAgent + '\'' +
-                ", sourceHost='" + sourceHost + '\'' +
+                ", sourceInfo=" + sourceInfo +
                 '}';
     }
 }
