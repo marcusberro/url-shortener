@@ -1,6 +1,8 @@
 package com.mberro.urlshortener.domain;
 
-import com.mberro.urlshortener.application.ShortenerApplicationService;
+import com.mberro.urlshortener.domain.exception.UnknownUrlException;
+import com.mberro.urlshortener.domain.repository.RedirectionRepository;
+import com.mberro.urlshortener.domain.repository.ShortenerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +35,17 @@ public class ShortenerService {
     }
 
     public String getRedirectionUrl(String code, Map<String, String> requestInfo) {
+        // TODO validate if (StringUtils.isAlpha(code)) {
         final Optional<ShortenUrl> shortenUrl = shortenerRepository.findByCode(code);
 
-        if(!shortenUrl.isPresent()) {
-            // TODO throuws exception
-        }
+        if(!shortenUrl.isPresent())
+            throw new UnknownUrlException();
 
         shortenUrl.get().increaseHits();
 
         redirectionRepository.save(new Redirection(shortenUrl.get(), new SourceInfo(requestInfo)));
+
+        log.info("Redirecting code["+code+"] url["+shortenUrl.get().getUrl()+"]");
 
         return shortenUrl.get().getUrl();
     }

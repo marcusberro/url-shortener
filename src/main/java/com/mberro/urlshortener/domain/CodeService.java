@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CodeService {
 
-    static Logger log = LoggerFactory.getLogger(CodeService.class);
+    final static Logger log = LoggerFactory.getLogger(CodeService.class);
 
-    public String generateCode(){
-        // TODO generate code algo
-        return "aaa";
+    public String nextCode(long seed){
+        // TODO implement other algorithms hexadecimal so far
+        return Long.toHexString(seed);
     }
 }

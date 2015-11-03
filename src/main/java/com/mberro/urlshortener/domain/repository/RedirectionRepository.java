@@ -1,5 +1,6 @@
-package com.mberro.urlshortener.domain;
+package com.mberro.urlshortener.domain.repository;
 
+import com.mberro.urlshortener.domain.Redirection;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

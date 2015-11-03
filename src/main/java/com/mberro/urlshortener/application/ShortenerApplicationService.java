@@ -1,10 +1,8 @@
 package com.mberro.urlshortener.application;
 
 import com.mberro.urlshortener.application.representation.ShortenResponse;
-import com.mberro.urlshortener.domain.CodeService;
 import com.mberro.urlshortener.domain.ShortenUrl;
 import com.mberro.urlshortener.domain.ShortenerService;
-import com.mberro.urlshortener.domain.SourceInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -20,12 +20,14 @@ public class Redirection {
     private ShortenUrl shortenUrl;
 
     @Column(name="redirectDate")
-//    @Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
     private LocalDateTime redirectDate;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="sourceInfoId")
     private SourceInfo sourceInfo;
+
+    public Redirection() {
+    }
 
     public Redirection(ShortenUrl shortenUrl, SourceInfo sourceInfo) {
         setShortenUrl(shortenUrl);

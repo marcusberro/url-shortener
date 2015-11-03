@@ -29,10 +29,14 @@ public class SourceInfo {
     @Column(name="sourceRequestDate")
     private LocalDateTime sourceRequestDate;
 
+    public SourceInfo() {
+    }
+
     public SourceInfo(Map<String, String> requestInfo) {
         setUserAgent(requestInfo.get("userAgent"));
         setSourceHost(requestInfo.get("sourceHost"));
-        setSourceRequestDate(LocalDateTime.parse(requestInfo.get("sourceRequestDate")));
+        if (requestInfo.get("sourceRequestDate") != null)
+            setSourceRequestDate(LocalDateTime.parse(requestInfo.get("sourceRequestDate")));
     }
 
     public SourceInfo(String userAgent, String sourceHost, LocalDateTime sourceRequestDate) {

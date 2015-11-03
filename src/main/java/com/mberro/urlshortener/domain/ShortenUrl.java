@@ -1,5 +1,7 @@
 package com.mberro.urlshortener.domain;
 
+import com.mberro.urlshortener.domain.repository.ShortenerRepository;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -22,11 +24,13 @@ public class ShortenUrl {
     private String url;
 
     @Column(name="creationDate")
-//    @Type(type="org.joda.time.contrib.hibernate.PersistentLocalDateTime")
     private LocalDateTime creationDate;
 
     @Column(name="hits")
     private Long hits;
+
+    public ShortenUrl() {
+    }
 
     public ShortenUrl(String url) {
         setUrl(url);
@@ -75,12 +79,10 @@ public class ShortenUrl {
         this.hits = hits;
     }
 
+    // TODO autowire those services?
     public void shorten(CodeService codeService, ShortenerRepository shortenerRepository) {
-        // TODO call code service
-        setCode(codeService.generateCode());
-
-        // TODO save into SOR
         shortenerRepository.save(this);
+        setCode(codeService.nextCode(getId()));
     }
 
     // TODO check for concurrency
