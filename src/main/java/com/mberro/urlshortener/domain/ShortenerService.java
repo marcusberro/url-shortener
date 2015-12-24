@@ -43,6 +43,7 @@ public class ShortenerService {
 
         shortenUrl.get().increaseHits();
 
+        // TODO review ShortenUrl responsibility related to redirection
         redirectionRepository.save(new Redirection(shortenUrl.get(), new SourceInfo(requestInfo)));
 
         log.info("Redirecting code["+code+"] url["+shortenUrl.get().getUrl()+"]");
