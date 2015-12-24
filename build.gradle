@@ -48,6 +48,7 @@ dependencies {
 
     runtime("com.h2database:h2")
     runtime("com.zaxxer:HikariCP:2.4.3")
+    runtime("mysql:mysql-connector-java:5.1.38")
 
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
