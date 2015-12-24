@@ -15,6 +15,4 @@ alter table shorten_url add constraint UK_CODE unique (code);
 alter table redirection add constraint FK_SHORTEN_URL foreign key (shorten_url_id) references shorten_url;
 alter table redirection add constraint FK_SOURCE_INFO foreign key (source_info_id) references source_info;
 
-insert into shorten_url values (1,'aaa', '2015-10-24 01:11:23', 1, 'http://google.com');
-insert into source_info values (1,'localhost','2015-10-24 01:11:23','Firefox');
-insert into redirection values (1, '2015-10-24 02:11:23', 1, 1);
+CREATE SEQUENCE IF NOT EXISTS URL_CODE START WITH 1 INCREMENT BY 1 MINVALUE 1 MAXVALUE 4294967295 NOCYCLE NOCACHE;

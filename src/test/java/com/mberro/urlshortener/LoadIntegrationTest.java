@@ -1,6 +1,5 @@
-package com.mberro.urlshortener.performance;
+package com.mberro.urlshortener;
 
-import com.mberro.urlshortener.ShortenerApplication;
 import com.mberro.urlshortener.application.ShortenerApplicationService;
 import com.mberro.urlshortener.application.representation.ShortenResponse;
 import com.mberro.urlshortener.domain.exception.ShortenerException;
