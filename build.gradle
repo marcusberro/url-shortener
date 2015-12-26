@@ -46,13 +46,22 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
 //    compile("org.springframework:spring-webmvc")
 
-    runtime("com.h2database:h2")
-    runtime("com.zaxxer:HikariCP:2.4.3")
-    runtime("mysql:mysql-connector-java:5.1.38")
+    compile("com.h2database:h2")
+    compile("com.zaxxer:HikariCP:2.4.3")
+    compile("mysql:mysql-connector-java:5.1.38")
 
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.6'
+    gradleVersion = '2.7'
+}
+
+tasks.withType(org.springframework.boot.gradle.run.BootRunTask) {
+
+    if (project.hasProperty('spring.profiles.active'))
+        systemProperty('spring.profiles.active', getProperty('spring.profiles.active') )
+    else
+        systemProperty('spring.profiles.active', 'h2')
+
 }
