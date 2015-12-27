@@ -54,13 +54,4 @@ task wrapper(type: Wrapper) {
     gradleVersion = '2.7'
 }
 
-tasks.withType(org.springframework.boot.gradle.run.BootRunTask) {
-
-    if (project.hasProperty('spring.profiles.active')) {
-        systemProperty('spring.profiles.active', getProperty('spring.profiles.active'))
-        apply from: 'build-'+getProperty('spring.profiles.active')+'.gradle'
-    } else {
-        systemProperty('spring.profiles.active', 'h2')
-        apply from: 'build-h2.gradle'
-    }
-}
+apply from: rootProject.file('build-profiles-db.gradle');

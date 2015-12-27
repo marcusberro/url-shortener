@@ -1,0 +1,27 @@
+
+// ----
+// Use Profiles with -P arguments
+// ----
+//
+// Run gradle bootRun tasks with the -Pspring.profiles.active=<db-type> argument to use a specific database
+//
+// For example, running url-shortener with mysql:
+// gradle bootRun -Pspring.profiles.active=mysql
+
+def databaseProfile;
+
+if (project.hasProperty('spring.profiles.active')) {
+    // Uses specific database
+    databaseProfile = getProperty('spring.profiles.active')
+} else {
+    // Default when no profile property is Embedded H2 database
+    databaseProfile = 'h2'
+}
+
+println 'Using profile databse: "' + databaseProfile + '" for ' + project.getName()
+
+apply from: rootProject.file('build-'+databaseProfile+'.gradle');
+
+bootRun {
+    systemProperty('spring.profiles.active', databaseProfile)
+}
