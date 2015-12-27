@@ -9,6 +9,16 @@ This is an URL Shortener written in Java 8, Spring Boot, Spring MVC, Spring Data
 
 Under construction version: it's better run it in idea IDE with Gradle plugin
 
+There are 2 database options: mysql or h2 in memory. To run with a specific db inform spring.profiles.active property calling gradle:
+
+> gradle bootRun -Pspring.profiles.active=mysql
+
+or
+
+> gradle bootRun -Pspring.profiles.active=h2
+
+If it doesn't find this property, default property is h2
+
 Once you start the application, the following endpoints are available so far:
 
 Home (Future single-page app)
@@ -47,9 +57,9 @@ Project Details
 
 - REST based API
 - Single Jar Application
-- Embedded Application server Tomcat 8.0.28
-- In-memory H2 Relational Database
-- Hibernate DDL auto genaration
+- Embedded Application server Undertown
+- In-memory H2 and Mysql Relational Databases using Gradle and Spring profiles
+- Springboot schema.sql and data.sql auto running
 
 ### Tech
 
@@ -73,11 +83,11 @@ Url Sortener uses a number of open source projects to work properly:
 
 Strong desirable:
 - Dockerize
-- Spring Profile integration
-- Improve gradle build script
-- Embedded Application server options (Undertow/Jetty)
-- Multiple Relational Database support (Mysql/Postgres/H2)
-- Generate tables with ddl scripts: Flyway integration
+- Refactor Spring and gradle build Profile integration
+- Tuning: undertown and HikariCP
+- Support for other Embedded Application server options (Tomcat/Jetty)
+- Multiple Relational Database support: Mysql and H2 supported, Postgres needed
+- Generate tables with ddl scripts: springboot database initialization supported, Flyway integration needed
 - Light footprint, can run on very constrained systems
 
 Maybe, someday...
