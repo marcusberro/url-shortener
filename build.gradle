@@ -44,12 +44,9 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
     compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
-//    compile("org.springframework:spring-webmvc")
-
-    compile("com.h2database:h2")
     compile("com.zaxxer:HikariCP:2.4.3")
-    compile("mysql:mysql-connector-java:5.1.38")
 
+    testCompile("com.h2database:h2")
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 }
 
@@ -59,9 +56,11 @@ task wrapper(type: Wrapper) {
 
 tasks.withType(org.springframework.boot.gradle.run.BootRunTask) {
 
-    if (project.hasProperty('spring.profiles.active'))
-        systemProperty('spring.profiles.active', getProperty('spring.profiles.active') )
-    else
+    if (project.hasProperty('spring.profiles.active')) {
+        systemProperty('spring.profiles.active', getProperty('spring.profiles.active'))
+        apply from: 'build-'+getProperty('spring.profiles.active')+'.gradle'
+    } else {
         systemProperty('spring.profiles.active', 'h2')
-
+        apply from: 'build-h2.gradle'
+    }
 }
